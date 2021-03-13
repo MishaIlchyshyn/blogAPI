@@ -3,7 +3,7 @@ class Api::V1::PostsController < Api::BaseController
   before_action :get_post, only: %i[show destroy]
 
   def index
-    @posts = Post.all
+    @posts = Api::V1::PostsQuery.new(params[:search]).call
     render json: PostSerializer.new(@posts).serialized_json
   end
 
