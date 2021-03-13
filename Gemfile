@@ -18,6 +18,7 @@ gem 'puma', '~> 4.1'
 gem "devise"
 gem "simple_token_authentication"
 gem 'devise_token_auth'
+gem 'fast_jsonapi'
 
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
