@@ -12,6 +12,6 @@ class Api::V1::PostsQuery
   attr_reader :search
 
   def fetch_posts
-    Post.where("category LIKE :search", search: "%#{search}%")
+    Post.where("category LIKE :search OR user_id LIKE :search", search: "%#{search}%").order('posts.created_at DESC')
   end
 end
