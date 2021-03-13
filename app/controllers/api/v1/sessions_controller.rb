@@ -1,6 +1,7 @@
 class Api::V1::SessionsController < Devise::SessionsController
-  before_action :sign_in_params, only: :create
-  before_action :load_user, only: :create
+  before_action :sign_in_params, only: %i[create]
+  before_action :load_user, only: %i[create]
+
   # sign in
   def create
     if @user.valid_password?(sign_in_params[:password])
@@ -20,6 +21,7 @@ class Api::V1::SessionsController < Devise::SessionsController
   end
 
   private
+
   def sign_in_params
     params.require(:user).permit :email, :password
   end
