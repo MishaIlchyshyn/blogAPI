@@ -1,5 +1,5 @@
 class Api::V1::PostsController < Api::BaseController
-  skip_before_action :current_user, only: %i[index]
+  skip_before_action :current_user, only: %i[index show]
   before_action :get_post, only: %i[show destroy]
 
   def index
@@ -8,7 +8,7 @@ class Api::V1::PostsController < Api::BaseController
   end
 
   def create
-    @post = current_user.posts.create(post_params)
+    @post = current_user.posts.new(post_params)
     if @post.save
       render json: @post
     else
@@ -30,7 +30,7 @@ class Api::V1::PostsController < Api::BaseController
 
   def destroy
     if current_user.id == @post.user_id
-      @post.delete
+      @post.destroy
       render json: {
         messages: "You deleted this post"
       }
@@ -48,6 +48,6 @@ class Api::V1::PostsController < Api::BaseController
   end
 
   def get_post
-    @post = Post.find_by(id: params[:id])
+    @post = Post.find(params[:id])
   end
 end
