@@ -20,7 +20,7 @@ class Api::V1::PostsController < Api::BaseController
 
   def show
     if @post
-      render json: @post
+      render json: @post.as_json(only: [:title, :body, :category, :created_at])
     else
       render json: {
         errors: "Post not found"
