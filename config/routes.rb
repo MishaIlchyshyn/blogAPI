@@ -7,7 +7,10 @@ Rails.application.routes.draw do
         post "sign_up", to: "registrations#create"
         post "sign_in", to: "sessions#create"
       end
-      resources :posts, only: %i[index create show update destroy]
+      resources :posts, only: %i[index create destroy] do
+        resources :comments, only: %i[index create]
+      end
+      resources :comments, only: %i[destroy]
     end
   end
 end
