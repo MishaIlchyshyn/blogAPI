@@ -5,13 +5,13 @@ class Api::V1::CommentsController < Api::BaseController
 
   def index
     @comments = @post.comments
-    render json: @comments
+    render json: @comments.as_json(only: [:body, :user_id])
   end
 
   def create
-    @comment = @post.comments.create(comment_params)
+    @comment = @post.comments.new(comment_params)
     if @comment.save
-      render json: @comment
+      render json: @comment.as_json(only: [:body])
     else
       render json: {
         messages: @comment.errors.messages
@@ -32,7 +32,7 @@ class Api::V1::CommentsController < Api::BaseController
   private
 
   def get_comment
-    @comment = Comment.find_by(id: params[:id])
+    @comment = Comment.find(params[:id])
   end
 
   def get_post
