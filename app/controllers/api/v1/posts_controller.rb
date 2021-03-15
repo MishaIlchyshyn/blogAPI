@@ -10,7 +10,7 @@ class Api::V1::PostsController < Api::BaseController
   def create
     @post = current_user.posts.new(post_params)
     if @post.save
-      render json: @post
+      render json: @post, status: :created
     else
       render json: {
         errors: @post.errors.full_messages
